@@ -16,19 +16,20 @@ static const unsigned int gappoh    = 10;       /* horiz outer gap between windo
 static const unsigned int gappov    = 30;       /* vert outer gap between windows and screen edge */
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 // static const char *fonts[]          = { "Iosevka Term,Iosevka Nerd Font Mono:pixelsize=14:style=Regular:autohint=true" };
-static const char *fonts[]          = { "monospace:pixelsize=14" };
+static const char *fonts[]          = { "monospace:pixelsize=14", "JoyPixels:pixelsize=10:antialias=true:autohint=true" };
 static const char dmenufont[]          = "monospace:pixelsize=14";
 // static const char dmenufont[]       = "Iosevka Term,Iosevka Nerd Font Mono:pixelsize=14:style=Regular:autohint=true";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-// static const char col_cyan[]        = "#7E9CD8";
+static const char col_gray1[]       = "#7FB4CA";
+static const char col_gray2[]       = "#1F1F28";
+static const char col_gray3[]       = "#1F1F28";
+static const char col_gray4[]       = "#DCD7BA";
+static const char col_cyan[]        = "#7FB4CA";
+ // "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray3, "-nf", col_gray4, "-sb", col_cyan, "-sf", col_gray3, NULL
+
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { col_gray4, col_gray3, col_gray2 },
+	[SchemeSel]  = { col_gray3, col_cyan, col_gray1 },
 };
 
 /* tagging */
@@ -87,7 +88,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray3, "-nf", col_gray4, "-sb", col_cyan, "-sf", col_gray3, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 #include <X11/XF86keysym.h>
@@ -104,6 +105,7 @@ static Key keys[] = {
 	{ MODKEY,		       	            XK_a,      togglegaps,     {0} },
 	{ MODKEY|ShiftMask,	       	    XK_a,      defaultgaps,    {0} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY|ShiftMask,             XK_b,      spawn,          SHCMD("save_bm") },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_j,      pushdown,       {0} },
@@ -142,8 +144,8 @@ static Key keys[] = {
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)") },
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)") },
 	{ 0, XF86XK_AudioMicMute,	spawn,		SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
-	{ 0, XF86XK_MonBrightnessUp,	spawn,		SHCMD("xbacklight -inc 15") },
-	{ 0, XF86XK_MonBrightnessDown,	spawn,		SHCMD("xbacklight -dec 15") },
+	{ 0, XF86XK_MonBrightnessUp,	spawn,		SHCMD("xbacklight -inc 10") },
+	{ 0, XF86XK_MonBrightnessDown,	spawn,		SHCMD("xbacklight -dec 10") },
 
 };
 
